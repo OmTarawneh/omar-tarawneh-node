@@ -24,7 +24,7 @@ const connect = async () => {
 };
 
 const User = require('./models/user.model')(sequelize, DataTypes);
-const Blog = require('./models/article.model')(sequelize, DataTypes);
+const Blog = require('./models/blog.model')(sequelize, DataTypes);
 const Comment = require('./models/comment.model')(sequelize, DataTypes);
 const Tag = require('./models/tag.model')(sequelize, DataTypes);
 

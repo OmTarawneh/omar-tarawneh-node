@@ -13,11 +13,13 @@ const {
   updateComment,
   deleteComment,
 } = require('./controllers/comment.controller');
+const { getTags } = require('./controllers/tag.controller');
 
 const router = express.Router();
 
 router.post('/blog', createBlog);
 router.get('/blog', getBlogs);
+router.get('/tag', getTags);
 router.get('/blog/user/:userId', getUserBlogs);
 router.get('/blog/id/:id', getBlogById);
 router.put('/blog/id/:id', updateBlog);

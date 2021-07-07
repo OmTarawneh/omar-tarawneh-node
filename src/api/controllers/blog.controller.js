@@ -29,7 +29,6 @@ const createBlog = async (req, res) => {
       });
       return newTag;
     });
-    console.log(tags);
     const storedTags = await Promise.all(tags);
     const blog = await Blog.create(body);
     await blog.addTags(storedTags);
