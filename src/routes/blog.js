@@ -1,4 +1,4 @@
-const express = require('express');
+const router = require('express-promise-router')();
 const {
   createBlog,
   getBlogs,
@@ -9,8 +9,6 @@ const {
   deleteBlog,
 } = require('../controllers/blog');
 const { getTags } = require('../controllers/tag');
-
-const router = express.Router();
 
 router.post('/blog', createBlog);
 router.get('/blog', getBlogs);

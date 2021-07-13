@@ -9,12 +9,8 @@ const { response } = require('../utils/response');
  *
  */
 const getTags = async (req, res) => {
-  try {
-    const tags = await allTags();
-    res.json(response(tags, 200, 'OK'));
-  } catch (error) {
-    res.json({ code: 400, message: 'Bad', error: error.message });
-  }
+  const tags = await allTags();
+  res.json(response(tags, 200, 'OK'));
 };
 
 module.exports = {

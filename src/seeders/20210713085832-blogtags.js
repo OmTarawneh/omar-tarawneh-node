@@ -1,6 +1,4 @@
-const faker = require('faker');
-
-const blogTags = [...Array(5)].map((tag) => ({
+const blogTags = [...Array(50)].map((tag) => ({
   blog_id: Math.floor(Math.random() * 100),
   tag_id: Math.floor(Math.random() * 5 + 1),
   createdAt: new Date(),
