@@ -15,16 +15,20 @@ app.use(express.json());
 app.use('/api/v1', blogRouter);
 app.use('/api/v1', authRouter);
 
-// -[x] config -> config for sequelize
+// -[x] config     -> config for sequelize
 // -[x] models     -> models of projects
 // -[x] migrations -> migration of db
-// -[] seeds ->  seed initial data into database.
-// -[] controller -> controller of the routes
-// -[] services   -> function that connect to the model
-// -[] middleware -> middleware error/validation
+// -[x] seeds      -> seed initial data into database.
 // -[x] routes     -> routes of article/tag
 // -[x] app        -> point of connection.
+// ===========
+// -[] global response object
+// -[] express promise router
+// -[] express validator
+// -[] controller  -> controller of the routes
+// -[] services    -> function that connect to the model
+// -[] middleware  -> middleware error/validation
 
-app.listen(5000, () => {
-  console.log('The Server is connected on port', 5000);
+app.listen(PORT, () => {
+  console.log('The Server is connected on port', PORT);
 });
