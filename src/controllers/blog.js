@@ -1,23 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 const express = require('express');
-const { User, Blog, Tag, Comment } = require('../../db');
-
+const { User, Blog, Tag, Comment, BlogTag } = require('../models');
 /**
  * @name createBlog
  * Add new blog attached to user in Data Base.
  * @function
  * @async
- * @typedef {object} requestBody
- * @property {string}         title             The title of the Blog.
- * @property {string}         content           The content of the Blog.
- * @property {string}         describtion       The describtion of the Blog.
- * @property {number}         userId            The id of the user that created the Blog.
- * @property {array<string>}  tags              The array of tags attached to the Blog.
  *
- * @param {express.Request<{}, {}, requestBody} req Request object conatain Blog data.
+ * @param {express.Request<{}, {}, requestBody} req Request object contain Blog data.
  * @param {express.Response}                    res Response object.
  *
- * @returns {Promise<void>}
  */
 const createBlog = async (req, res) => {
   try {
@@ -31,10 +23,16 @@ const createBlog = async (req, res) => {
     });
     const storedTags = await Promise.all(tags);
     const blog = await Blog.create(body);
-    await blog.addTags(storedTags);
+    storedTags.map(async (tag) => {
+      await BlogTag.create({ tag_id: tag.id, blog_id: blog.id });
+    });
+    await BlogTag.create({
+      tag_id: storedTags[0].id,
+      blog_id: blog.id,
+    });
     const assBlog = await Blog.findOne({
       where: { id: blog.id },
-      include: [User, Tag],
+      include: ['User', 'Tag'],
     });
     res.json({ code: 201, message: 'Ok', data: assBlog });
   } catch (err) {
@@ -60,7 +58,7 @@ const getBlogs = async (req, res) => {
   try {
     const itemsCount = await Blog.count();
     const blogs = await Blog.findAll({
-      include: [User, Tag],
+      include: [User, 'Tag'],
       limit: req.query.limit,
       offset: req.query.offset,
     });
@@ -117,12 +115,20 @@ const getUserBlogs = async (req, res) => {
  */
 const getBlogByTag = async (req, res) => {
   try {
+    const itemsCount = await Blog.count({
+      include: [{ model: Tag, where: { name: req.params.tag } }],
+    });
     const blogs = await Blog.findAll({
       include: [{ model: Tag, where: { name: req.params.tag } }, User],
       limit: req.query.limit,
       offset: req.query.offset,
     });
-    res.json({ code: 200, message: 'Ok', data: blogs });
+    res.json({
+      code: 200,
+      message: 'Ok',
+      data: blogs,
+      itemsCount,
+    });
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }

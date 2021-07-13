@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const express = require('express');
-const { Tag } = require('../../db');
+const { Tag } = require('../models');
 /**
  * @name getTags
  * Function to return all unique Tags in the database.

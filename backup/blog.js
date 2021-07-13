@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 /**
  * Function that return Blog models.
  * @param {Sequelize}           sequelize Sequelize instance.
- * @param {DataTypes}           dataTypes Sequlize Datatypes.
+ * @param {DataTypes}           dataTypes Sequelize Datatype.
  * @returns {Sequelize.model}
  */
 module.exports = (sequelize, dataTypes) => {
@@ -18,7 +18,7 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING,
       allowNull: false,
     },
-    describtion: {
+    description: {
       type: dataTypes.TEXT,
       allowNull: false,
     },

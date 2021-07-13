@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const express = require('express');
-const { User } = require('../../db');
+const { User } = require('../models');
 
 /**
  * @name signupController

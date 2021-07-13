@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const express = require('express');
-const { Comment } = require('../../db');
+const { Comment } = require('../models');
 
 /**
  * @name createComment

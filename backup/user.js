@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 /**
  * Function that return User models.
  * @param {Sequelize}           sequelize Sequelize instance.
- * @param {DataTypes}           dataTypes Sequlize Datatypes.
+ * @param {DataTypes}           dataTypes Sequelize Datatype.
  * @returns {Sequelize.model}
  */
 module.exports = (sequelize, dataTypes) => {
@@ -30,6 +30,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.INTEGER,
       defaultValue: 0,
       allowNull: false,
+    },
+    image: {
+      type: dataTypes.STRING,
+      defaultValue: 'https://static.productionready.io/images/smiley-cyrus.jpg',
     },
   });
   return User;

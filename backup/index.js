@@ -6,27 +6,10 @@ const sequelize = new Sequelize(DATABASE_URL, {
   logging: false,
 });
 
-/**
- * Function to connect to the Database
- * @function
- * @async
- *
- * @returns {Promise<void>}
- */
-const connect = async () => {
-  try {
-    await sequelize.authenticate();
-    await sequelize.sync({ force: true });
-    console.log('Connection has been made successfully.');
-  } catch (error) {
-    throw new Error('Error while connecting to Database.');
-  }
-};
-
-const User = require('./models/user.model')(sequelize, DataTypes);
-const Blog = require('./models/blog.model')(sequelize, DataTypes);
-const Comment = require('./models/comment.model')(sequelize, DataTypes);
-const Tag = require('./models/tag.model')(sequelize, DataTypes);
+const User = require('./user')(sequelize, DataTypes);
+const Blog = require('./blog')(sequelize, DataTypes);
+const Comment = require('./comment')(sequelize, DataTypes);
+const Tag = require('./tag')(sequelize, DataTypes);
 
 User.hasMany(Blog, {
   foreignKey: {
@@ -67,6 +50,6 @@ Blog.belongsToMany(Tag, {
   allowNull: false,
 });
 
-const db = { connect, sequelize, User, Blog, Comment, Tag };
+const db = { sequelize, User, Blog, Comment, Tag };
 
 module.exports = db;

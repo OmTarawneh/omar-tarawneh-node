@@ -2,22 +2,22 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 /**
- * Function that return Comment models.
+ * Function that return Tag models.
  * @param {Sequelize}           sequelize Sequelize instance.
- * @param {DataTypes}           dataTypes Sequlize Datatypes.
+ * @param {DataTypes}           dataTypes Sequelize Datatype.
  * @returns {Sequelize.model}
  */
 module.exports = (sequelize, dataTypes) => {
-  const Comment = sequelize.define('comment', {
+  const Tag = sequelize.define('tag', {
     id: {
       type: dataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    content: {
-      type: dataTypes.TEXT,
+    name: {
+      type: dataTypes.STRING,
       allowNull: false,
     },
   });
-  return Comment;
+  return Tag;
 };

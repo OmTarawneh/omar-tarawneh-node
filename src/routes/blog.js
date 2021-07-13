@@ -7,24 +7,24 @@ const {
   getUserBlogs,
   updateBlog,
   deleteBlog,
-} = require('./controllers/blog.controller');
+} = require('../controllers/blog');
 const {
   createComment,
   updateComment,
   deleteComment,
-} = require('./controllers/comment.controller');
-const { getTags } = require('./controllers/tag.controller');
+} = require('../controllers/comment');
+const { getTags } = require('../controllers/tag');
 
 const router = express.Router();
 
 router.post('/blog', createBlog);
 router.get('/blog', getBlogs);
-router.get('/tag', getTags);
 router.get('/blog/user/:userId', getUserBlogs);
 router.get('/blog/id/:id', getBlogById);
+router.get('/blog/:tag/tag', getBlogByTag);
 router.put('/blog/id/:id', updateBlog);
 router.delete('/blog/id/:id', deleteBlog);
-router.get('/blog/:tag/tag', getBlogByTag);
+router.get('/tag', getTags);
 router.post('/comment', createComment);
 router.put('/comment/id/:id', updateComment);
 router.delete('/comment/id/:id', deleteComment);
