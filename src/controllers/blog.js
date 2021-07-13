@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const express = require('express');
+const { response } = require('../utils/response');
 const {
   addBlog,
   getAllBlogs,
@@ -20,7 +19,8 @@ const createBlog = async (req, res) => {
   try {
     const { body } = req;
     const blog = await addBlog(body);
-    res.json({ code: 201, message: 'Ok', data: blog });
+    // res.json({ code: 201, message: 'Ok', data: blog });
+    res.json(response(blog, 201, 'Ok'));
   } catch (err) {
     res.json({ code: 400, message: 'Bad', error: err.message });
   }
@@ -36,12 +36,7 @@ const getBlogs = async (req, res) => {
   try {
     const { limit, offset } = req.query;
     const { itemsCount, blogs } = await getAllBlogs(limit, offset);
-    res.json({
-      code: 200,
-      message: 'Ok',
-      data: blogs,
-      itemsCount,
-    });
+    res.json(response(blogs, 200, 'ok', itemsCount));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }
@@ -57,7 +52,7 @@ const getUserBlogs = async (req, res) => {
   try {
     const { userId, limit, offset } = req.params;
     const blogs = await userBlogs(userId, limit, offset);
-    res.json({ code: 200, message: 'Ok', data: blogs });
+    res.json(response(blogs, 200, 'ok'));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }
@@ -71,12 +66,7 @@ const getBlogByTag = async (req, res) => {
   try {
     const { limit, offset, tag } = req.params;
     const { itemsCount, blogs } = await tagBlogs(tag, limit, offset);
-    res.json({
-      code: 200,
-      message: 'Ok',
-      data: blogs,
-      itemsCount,
-    });
+    res.json(response(blogs, 200, 'ok', itemsCount));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }
@@ -91,7 +81,7 @@ const getBlogById = async (req, res) => {
   try {
     const { id } = req.params;
     const blog = await blogById(id);
-    res.json({ code: 200, message: 'Ok', data: blog });
+    res.json(response(blog, 200, 'ok'));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }
@@ -106,7 +96,7 @@ const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const blog = await blogUpdate(id, req.body);
-    res.json({ code: 200, message: 'Ok', data: blog });
+    res.json(response(blog, 200, 'ok'));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }
@@ -122,7 +112,7 @@ const deleteBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const blog = await blogDelete(id);
-    res.json({ code: 200, message: 'Ok', data: blog });
+    res.json(response(blog, 200, 'ok'));
   } catch (error) {
     res.json({ code: 400, message: 'Bad', error: error.message });
   }

@@ -8,11 +8,6 @@ const {
   updateBlog,
   deleteBlog,
 } = require('../controllers/blog');
-const {
-  createComment,
-  updateComment,
-  deleteComment,
-} = require('../controllers/comment');
 const { getTags } = require('../controllers/tag');
 
 const router = express.Router();
@@ -25,8 +20,5 @@ router.get('/blog/:tag/tag', getBlogByTag);
 router.put('/blog/id/:id', updateBlog);
 router.delete('/blog/id/:id', deleteBlog);
 router.get('/tag', getTags);
-router.post('/comment', createComment);
-router.put('/comment/id/:id', updateComment);
-router.delete('/comment/id/:id', deleteComment);
 
 module.exports = router;
