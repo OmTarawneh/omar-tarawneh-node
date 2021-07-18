@@ -11,82 +11,93 @@ const {
 
 /**
  * Controller Add new blog attached to user in Data Base.
- * @function
- * @async
  *
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const createBlog = async (req, res) => {
   const { body } = req;
   const blog = await addBlog(body);
-  res.json(response(blog, 201, 'Ok'));
+
+  res.json(response(blog, 201));
 };
 
 /**
- * Function to return all Blogs in the database or all user Blogs.
+ * Get all Blogs in the database or all user Blogs.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const getBlogs = async (req, res) => {
   const { limit, offset } = req.query;
   const { itemsCount, blogs } = await getAllBlogs(limit, offset);
+
   res.json(response(blogs, 200, 'ok', itemsCount));
 };
+
 /**
  * Controller to return all user Blogs from the database or all user Blogs.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  *
  */
 const getUserBlogs = async (req, res) => {
   const { userId, limit, offset } = req.params;
   const blogs = await userBlogs(userId, limit, offset);
+
   res.json(response(blogs, 200, 'ok'));
 };
+
 /**
  * Controller to return all Blogs filtered according to tag from the database.
- * @function
- * @async
+ *
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const getBlogByTag = async (req, res) => {
   const { limit, offset, tag } = req.params;
   const { itemsCount, blogs } = await tagBlogs(tag, limit, offset);
+
   res.json(response(blogs, 200, 'ok', itemsCount));
 };
 
 /**
  * Controller to get blog by id.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const getBlogById = async (req, res) => {
   const { id } = req.params;
   const blog = await blogById(id);
+
   res.json(response(blog, 200, 'ok'));
 };
 /**
  * Controller to update an Blog in the database and return it.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const updateBlog = async (req, res) => {
   const { id } = req.params;
   const blog = await blogUpdate(id, req.body);
+
   res.json(response(blog, 200, 'ok'));
 };
+
 /**
  * Controller to delete an Blog in the database and return it.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  *
  */
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
   const blog = await blogDelete(id);
+
   res.json(response(blog, 200, 'ok'));
 };
 

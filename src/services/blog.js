@@ -1,9 +1,11 @@
 const { User, Blog, Tag, BlogTag } = require('../models');
 
 /**
- * Function to add blog with tags to the database and return it.
+ * Add blog with tags to the database and return it.
  *
  * @param {object} blogObject Contain UserId title content description and array of tags.
+ *
+ * @return {Promise<Object>}
  */
 const addBlog = async (blogObject) => {
   const tags = blogObject.tags.map(async (tag) => {
@@ -13,8 +15,10 @@ const addBlog = async (blogObject) => {
     });
     return newTag;
   });
+
   const storedTags = await Promise.all(tags);
   const blog = await Blog.create(blogObject);
+
   storedTags.map(async (tag) => {
     await BlogTag.create({ tag_id: tag.id, blog_id: blog.id });
   });
@@ -28,12 +32,14 @@ const addBlog = async (blogObject) => {
   });
   return assBlog;
 };
+
 /**
- * Function to get all blogs and their counts.
+ * Get all blogs and their counts.
  *
  * @param {number} limit
  * @param {number} offset
- * @returns {object}
+ *
+ * @return {Promise<object>}
  */
 const getAllBlogs = async (limit, offset) => {
   const { count, rows } = await Blog.findAndCountAll({
@@ -41,14 +47,18 @@ const getAllBlogs = async (limit, offset) => {
     limit,
     offset,
   });
+  console.log(count);
   return { itemsCount: count, blogs: rows };
 };
+
 /**
- * Function to get all user blogs by user id.
+ * Get all user blogs by user id.
  *
  * @param {number} userId
  * @param {number} limit
  * @param {number} offset
+ *
+ * @return {Promise<Object>}
  */
 const userBlogs = async (userId, limit = 5, offset = 0) => {
   const blogs = await Blog.findAll({
@@ -60,11 +70,13 @@ const userBlogs = async (userId, limit = 5, offset = 0) => {
 };
 
 /**
- * Function to get all  blogs by tag name.
+ * Get all  blogs by tag name.
  *
  * @param {string} tagName
  * @param {number} limit
  * @param {number} offset
+ *
+ * @return {Promise<Object>}
  */
 const tagBlogs = async (tagName, limit = 5, offset = 0) => {
   const { count, rows } = await Blog.findAndCountAll({
@@ -79,9 +91,11 @@ const tagBlogs = async (tagName, limit = 5, offset = 0) => {
 };
 
 /**
- * Function to get a blogs by id.
+ * Get a blogs by id.
  *
  * @param {number} blogId
+ *
+ * @return {Promise<Object>}
  */
 const blogById = async (blogId) => {
   const blog = await Blog.findOne({
@@ -90,12 +104,14 @@ const blogById = async (blogId) => {
   });
   return blog;
 };
+
 /**
- * Function to update blog post by id.
+ * Update blog post by id.
  *
  * @param {number} blogId Id of the blog.
  * @param {object} fields Object containing the fields to update.
- * @returns
+ *
+ * @return {Promise<Object>}
  */
 const blogUpdate = async (blogId, fields) => {
   const blog = await Blog.update(fields, {
@@ -104,11 +120,13 @@ const blogUpdate = async (blogId, fields) => {
   });
   return blog;
 };
+
 /**
- * Function to delete a blog post from DB by id.
+ * Delete a blog post from DB by id.
  *
  * @param {number} blogId id of the blog.
- * @returns
+ *
+ * @return {Promise<Object>}
  */
 const blogDelete = async (blogId) => {
   const blog = await Blog.destroy({

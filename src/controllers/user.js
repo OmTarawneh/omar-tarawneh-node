@@ -5,8 +5,8 @@ const { User } = require('../models');
 /**
  * Signup controller to add new user to Data base.
  *
- * @function
- * @async
+ * @param {import('express').Request}  req
+ * @param {import('express').Response} res
  */
 const signup = async (req, res) => {
   try {
