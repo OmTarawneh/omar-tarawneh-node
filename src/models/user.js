@@ -3,6 +3,10 @@ const { generateToken } = require('../utils/authHelper');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    toJSON() {
+      return { ...this.get(), password: undefined };
+    }
+
     static associate(models) {
       this.hasMany(models.Blog, {
         foreignKey: {
