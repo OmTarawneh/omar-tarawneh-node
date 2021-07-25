@@ -1,5 +1,7 @@
+const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { hashPassword } = require('../utils/authHelper');
+const { ValidationError } = require('../utils/globalError');
 
 /**
  * Register user in the DB if the email exist throw an Error.
@@ -17,6 +19,29 @@ const addUser = async (body) => {
   return user;
 };
 
+/**
+ * Basic Authentication for user using email and password.
+ *
+ * @param {String}   email
+ * @param {Password} password
+ *
+ * @return {Promise<Object>}
+ */
+const authUser = async ({ email, password }) => {
+  const user = await User.findOne({
+    where: { email },
+  });
+
+  if (!user) throw new Error('User does not exists.');
+
+  const valid = await bcrypt.compare(password, user.password);
+
+  if (valid) return user;
+
+  throw new ValidationError('Error in Email/Password', 401);
+};
+
 module.exports = {
   addUser,
+  authUser,
 };
