@@ -4,6 +4,6 @@ const { signup } = require('../controllers/user');
 /**
  * Register a user.
  */
-router.post('/user', signup);
+router.post('/signup', signup);
 
 module.exports = router;

@@ -9,12 +9,8 @@ const { User } = require('../models');
  * @param {import('express').Response} res
  */
 const signup = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.json({ code: 201, message: 'Ok', data: user });
-  } catch (error) {
-    res.json({ code: 400, message: 'Bad', error: error.message });
-  }
+  const user = await User.create(req.body);
+  res.json({ code: 201, message: 'Ok', data: user });
 };
 
 module.exports = { signup };
