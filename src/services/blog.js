@@ -28,7 +28,7 @@ const addBlog = async (blogObject) => {
   });
   const assBlog = await Blog.findOne({
     where: { id: blog.id },
-    include: ['User', 'Tag'],
+    include: ['User', { model: Tag, as: 'Tag', attributes: ['name', 'id'] }],
   });
   return assBlog;
 };

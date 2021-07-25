@@ -1,6 +1,3 @@
-/**
- * Global Validation Error.
- */
 class ValidationError extends Error {
   /**
    * Take error message and the status.
@@ -10,7 +7,10 @@ class ValidationError extends Error {
    */
   constructor(message, status) {
     super();
+    this.name = 'Validation Error';
     this.message = message;
-    this.status = status;
+    this.statusCode = status;
   }
 }
+
+module.exports = { ValidationError };

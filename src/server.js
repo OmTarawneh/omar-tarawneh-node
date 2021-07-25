@@ -10,12 +10,14 @@ const { PORT } = process.env;
 const blogRouter = require('./routes/blog');
 const authRouter = require('./routes/user');
 const error = require('./middleware/error');
+const notFound = require('./middleware/404');
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api/v1', blogRouter);
 app.use('/api/v1', authRouter);
+app.use('*', notFound);
 app.use(error);
 
 app.listen(PORT, () => {

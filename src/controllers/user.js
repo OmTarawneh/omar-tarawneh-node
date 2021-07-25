@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-const express = require('express');
-const { User } = require('../models');
+const { addUser } = require('../services/user');
+const { response } = require('../utils/response');
 
 /**
  * Signup controller to add new user to Data base.
@@ -9,8 +8,9 @@ const { User } = require('../models');
  * @param {import('express').Response} res
  */
 const signup = async (req, res) => {
-  const user = await User.create(req.body);
-  res.json({ code: 201, message: 'Ok', data: user });
+  const user = await addUser(req.body);
+
+  res.json(response(user, null, 201));
 };
 
 module.exports = { signup };

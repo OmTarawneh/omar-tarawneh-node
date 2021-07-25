@@ -1,5 +1,5 @@
 const blogTags = [...Array(50)].map((tag) => ({
-  blog_id: Math.floor(Math.random() * 100),
+  blog_id: Math.floor(Math.random() * 100 + 1),
   tag_id: Math.floor(Math.random() * 5 + 1),
   createdAt: new Date(),
   updatedAt: new Date(),

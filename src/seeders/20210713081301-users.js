@@ -1,8 +1,7 @@
 const faker = require('faker');
 
 const users = [...Array(100)].map((user) => ({
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
+  username: faker.name.firstName(),
   email: faker.internet.email(),
   password: faker.internet.password(8),
   image: faker.image.avatar(),

@@ -36,7 +36,7 @@ router.get('/blog/id/:id', getBlogById);
 router.get('/blog/:tag/tag', getBlogByTag);
 
 /**
- * Update a Blog.
+ * Update a Blog by id.
  */
 router.put('/blog/id/:id', updateBlog);
 
