@@ -12,8 +12,9 @@ module.exports = (req, res, next) => {
 
   if (errors.isEmpty()) next();
   else {
-    const extractedErrors = [];
-    errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
+    const extractedErrors = errors
+      .array()
+      .map((err) => ({ [err.param]: err.msg }));
 
     throw new ValidationError(extractedErrors, 400);
   }
