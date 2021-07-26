@@ -6,7 +6,7 @@ const { AuthError } = require('../utils/globalError');
 /**
  * Register user in the DB if the email exist throw an Error.
  *
- * @param {Object}          body  Contain user info username, password, email.
+ * @param {Object} body  Contain user info username, password, email.
  *
  * @return {Promise<Object>}
  */
